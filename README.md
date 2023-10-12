@@ -4,9 +4,8 @@ Använd dessa filer som grund till din laboration.
 
 OBS: Uppdatera texten i denna README-fil så att den beskriver din labb, samt inkludera ditt namn och student-id.
 
-## Namn: Emil Arktander
-
-## Student-ID: emar22
+### Namn: Emil Arktander
+### Student-ID: emar22
 
 Uppgiften handlar om att impementera funktionalitet till en "Att göra"-lista webbsida. På denna webbsida hittar man följande funktioner:
 
