@@ -17,6 +17,7 @@ document.onload = pageLoad();
 
 // När en användare skriver in text i inmatningsfältet körs funktionen checkItemText()
 textEl.addEventListener("keyup", checkItemText);
+
 // När en användare klickar på lägg till-knappen körs funktionen addItem()
 newTodoBtnEl.addEventListener("click", addItem);
 
@@ -26,6 +27,7 @@ newTodoBtnEl.addEventListener("click", addItem);
 function pageLoad() {
   //Lägg till-knappen är oklickbar när sidan laddas in
   newTodoBtnEl.disabled = true;
+
   // Rensa inmatningsfältet
   textEl.value = "";
 }
@@ -34,15 +36,18 @@ function pageLoad() {
 function checkItemText() {
   // Lagrar text från inmatningsfältet
   let userInput = textEl.value;
+
   // Kontrollerar om texten innehåller fler än fem tecken
   if (userInput.length < 5) {
     // Skriver ut ett felmeddelande ut på sidan
     errorMessageEl.innerHTML = "Texten innehåller mindre än fem tecken!";
+
     // Lägg till-knappen blir oklickbar
     newTodoBtnEl.disabled = true;
   } else {
-    // Rrensar eventuella felmeddelanden
+    // Rensar eventuella felmeddelanden
     errorMessageEl.innerText = "";
+
     // Lägg till-knappen blir klickbar
     newTodoBtnEl.disabled = false;
   }
@@ -52,14 +57,19 @@ function checkItemText() {
 function addItem() {
   // Spara inmatade tecken
   let userInput = textEl.value;
+
   // Skapa en artikel nod
   let node = document.createElement("article");
+
   // Skapa en text nod utfrån inmatade tecken
   let textNode = document.createTextNode(userInput);
+
   // Lägg till text i artikel noden
   node.appendChild(textNode);
+
   // Lägg till färdig text till listan
   todoListEl.appendChild(node);
+
   // Ta bort text ur inmatningsfältet
   textEl.value = "";
 }
