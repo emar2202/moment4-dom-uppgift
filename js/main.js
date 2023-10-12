@@ -5,10 +5,10 @@ Här lägger du din JavaScript-kod
 
 // Variabler
 let textEl = document.getElementById("newtodo");
-let newToDoBtnEl = document.getElementById("newtodobutton");
+let newTodoBtnEl = document.getElementById("newtodobutton");
 let errorMessageEl = document.getElementById("message");
-let toDoList = document.getElementById("todolist");
-let clearBtn = document.getElementById("clearbutton");
+let todoListEl = document.getElementById("todolist");
+let clearBtnEl = document.getElementById("clearbutton");
 
 // När sidan laddas in initieras kod
 document.onload = pageLoad();
@@ -18,37 +18,50 @@ document.onload = pageLoad();
 // När en användare skriver in text i inmatningsfältet körs funktionen checkItemText()
 textEl.addEventListener("keyup", checkItemText);
 // När en användare klickar på lägg till-knappen körs funktionen addItem()
-newToDoBtnEl.addEventListener("click", addItem);
+newTodoBtnEl.addEventListener("click", addItem);
 
 // Funktioner
 
 // Kod som initieras när sidan laddas in
 function pageLoad() {
   //Lägg till-knappen är oklickbar när sidan laddas in
-  newToDoBtnEl.disabled = true;
+  newTodoBtnEl.disabled = true;
+  // Rensa inmatningsfältet
+  textEl.value = "";
 }
 
 // Kontrollera inmatad text
 function checkItemText() {
   // Lagrar text från inmatningsfältet
-  let input = textEl.value;
+  let userInput = textEl.value;
   // Kontrollerar om texten innehåller fler än fem tecken
-  if (input.length < 5) {
+  if (userInput.length < 5) {
     // Skriver ut ett felmeddelande ut på sidan
     errorMessageEl.innerHTML = "Texten innehåller mindre än fem tecken!";
     // Lägg till-knappen blir oklickbar
-    newToDoBtnEl.disabled = true;
+    newTodoBtnEl.disabled = true;
   } else {
     // Rrensar eventuella felmeddelanden
     errorMessageEl.innerText = "";
     // Lägg till-knappen blir klickbar
-    newToDoBtnEl.disabled = false;
+    newTodoBtnEl.disabled = false;
   }
 }
 
 // Lägg till text i listan
 function addItem() {
-  console.log("Lägger till text i listan...");
+  // Spara inmatade tecken
+  let userInput = textEl.value;
+  // Skapa en artikel nod
+  let node = document.createElement("article");
+  // Skapa en text nod utfrån inmatade tecken
+  let textNode = document.createTextNode(userInput);
+  // Lägg till text i artikel noden
+  node.appendChild(textNode);
+  // Lägg till färdig text till listan
+  todoListEl.appendChild(node);
+  // Ta bort text ur inmatningsfältet
+  textEl.value = "";
 }
 
 // Ta bort från listan
