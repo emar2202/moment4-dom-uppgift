@@ -11,7 +11,7 @@ let errorMessageEl = document.getElementById("message");
 let todoListEl = document.getElementById("todolist");
 let clearBtnEl = document.getElementById("clearbutton");
 
-// När sidan laddas in initieras kod
+// När sidan laddas in körs start-kod
 document.onload = initPage();
 
 // Händelshanterare
@@ -38,7 +38,7 @@ function initPage() {
   // Rensa inmatningsfältet
   textEl.value = "";
 
-  // Skriv ut lagrade uppgifter
+  // Skriver ut lagrade uppgifter
   loadTasks();
 }
 
@@ -63,16 +63,12 @@ function checkItemText() {
   }
 }
 
-// Lägg till text i listan
-function addTask() {
-  // Spara inmatade tecken
-  let userInput = textEl.value;
-
+function createTask(taskName) {
   // Skapa en artikel nod
   let node = document.createElement("article");
 
   // Skapa en text nod utfrån inmatade tecken
-  let textNode = document.createTextNode(userInput);
+  let textNode = document.createTextNode(taskName);
 
   // Lägg till text i artikel noden
   node.appendChild(textNode);
@@ -82,9 +78,19 @@ function addTask() {
 
   // Lägg till färdig text till listan
   todoListEl.appendChild(node);
+}
 
+// Lägg till uppgift i listan
+function addTask() {
+  // Spara tecken från inmatningsrutan
+  let userInput = textEl.value;
+
+  // Skapar ett element till listan
+  createTask(userInput);
+  // Anropar funktion som sparar uppgifter som lagts till i listan
   saveTasks();
 
+  // Lägg till-knappen avaktiveras varje gång en uppgift har lagts till
   newTodoBtnEl.disabled = true;
 
   // Ta bort text ur inmatningsfältet
@@ -116,16 +122,17 @@ function saveTasks() {
   // Konvertera lista med uppgifter till en sträng
   let listToJson = JSON.stringify(taskList);
 
+  // Sparar uppgifter i samband med att de lagts till i listan
   localStorage.setItem("tasks", listToJson);
 }
 
-// Rensa inmatning från listan och web storage
+// Rensar inmatning från listan och data från web storage
 function clearTask() {
   todoListEl.innerHTML = "";
   localStorage.clear();
 }
 
-// Skriv ut lagrad data från web storage
+// Skriver ut lagrad data från web storage
 function loadTasks() {
   // Hämta in lagrad data och konvertera till en lista
   let storedTasks = localStorage.getItem("tasks");
@@ -136,20 +143,8 @@ function loadTasks() {
   if (strToArray != null) {
     // Skapa existerande uppgfiter som finns i web storage
     for (let i = 0; i < strToArray.length; i++) {
-      // Skapa en artikel nod
-      let node = document.createElement("article");
-
-      // Skapa en text nod utfrån inmatade tecken
-      let textNode = document.createTextNode(strToArray[i]);
-
-      // Lägg till text i artikel noden
-      node.appendChild(textNode);
-
-      // Lägg till en klass till varje uppgift
-      node.className = "task";
-
-      // Lägg till färdig text till listan
-      todoListEl.appendChild(node);
+      // Skapar upgift till listan
+      createTask(strToArray[i]);
     }
   }
 }
