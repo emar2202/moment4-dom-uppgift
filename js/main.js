@@ -21,6 +21,11 @@ textEl.addEventListener("keyup", checkItemText);
 // När en användare klickar på lägg till-knappen körs funktionen addItem()
 newTodoBtnEl.addEventListener("click", addItem);
 
+// Vid klick av enskild att göra-post ska den tas bort i listan
+todoListEl.addEventListener("click", function (e) {
+  e.target.remove();
+});
+
 // Funktioner
 
 // Kod som initieras när sidan laddas in
